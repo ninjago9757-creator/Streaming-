@@ -6,125 +6,235 @@
 <title>RUI STREAMING</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #0f172a;
-        color: white;
-    }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #020617, #1e3a8a);
+    background-attachment: fixed;
+    color: white;
+}
 
-    header {
-        background-color: #020617;
-        padding: 15px;
-        text-align: center;
-    }
+/* HEADER */
+header {
+    background-color: rgba(2,6,23,0.9);
+    padding: 20px;
+    text-align: center;
+}
 
-    header img {
-        width: 120px;
-    }
+header img {
+    width: 180px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(56,189,248,0.6);
+    animation: brilho 2s infinite alternate;
+}
 
-    nav {
-        background-color: #1e293b;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        padding: 10px;
-    }
+@keyframes brilho {
+    from { box-shadow: 0 0 10px #38bdf8; }
+    to { box-shadow: 0 0 30px #38bdf8; }
+}
 
-    nav a {
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        cursor: pointer;
-    }
+.container {
+    padding: 20px;
+    text-align: center;
+}
 
-    nav a:hover {
-        color: #38bdf8;
-    }
+/* BOTÕES */
+.btn {
+    background-color: #38bdf8;
+    color: black;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 8px 0;
+    display: block;
+    width: 100%;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: 0.2s;
+}
 
-    .container {
-        padding: 20px;
-        text-align: center;
-    }
+.btn:hover {
+    transform: scale(1.05);
+}
 
-    .btn {
-        background-color: #38bdf8;
-        color: black;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-weight: bold;
-        display: inline-block;
-    }
+.btn.whatsapp {
+    background-color: #25D366;
+    color: white;
+}
 
-    .btn:hover {
-        background-color: #0ea5e9;
-    }
+/* CARDS */
+.card {
+    background-color: rgba(30,41,59,0.95);
+    padding: 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 260px;
+    transition: 0.3s;
+}
 
-    .planos {
-        margin-top: 40px;
-    }
+.card:hover {
+    transform: scale(1.05);
+}
 
-    .card {
-        background-color: #1e293b;
-        padding: 20px;
-        margin: 10px auto;
-        border-radius: 10px;
-        width: 250px;
-    }
+.destaque {
+    border: 2px solid #22c55e;
+}
 
-    footer {
-        background-color: #020617;
-        text-align: center;
-        padding: 10px;
-        margin-top: 30px;
-    }
+/* BADGE */
+.badge {
+    background: #22c55e;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: block;
+    width: fit-content;
+    margin: 5px auto 10px auto;
+    text-align: center;
+}
+
+/* LOGO CARD */
+.logo-card {
+    width: 80px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background: #020617;
+    margin: 15% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.close {
+    float: right;
+    color: red;
+    cursor: pointer;
+}
+
+/* WHATSAPP FLUTUANTE */
+.zap {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 22px;
+    text-decoration: none;
+}
+
+/* FOOTER */
+footer {
+    background-color: rgba(2,6,23,0.9);
+    text-align: center;
+    padding: 10px;
+}
 </style>
+
+<script>
+const pix1 = "00020126410014br.gov.bcb.pix0111180184116030204pago520400005303986540525.005802BR5919Rui Borges coutinho6006Brasil62290525202603230932BGJ54JXWNX15G6304B101";
+const pix2 = "00020126330014br.gov.bcb.pix011118018411603520400005303986540550.005802BR5919Rui Borges coutinho6006Brasil62290525202603230934J4O8FU2MAGNJH6304B6EB";
+const pix3 = "00020126330014br.gov.bcb.pix011118018411603520400005303986540565.005802BR5919Rui Borges coutinho6006Brasil62290525202603230935RAS9TIJJRGS6L6304CCD8";
+
+function abrirModal(codigo) {
+    document.getElementById("pixArea").value = codigo;
+    document.getElementById("modal").style.display = "block";
+}
+
+function fecharModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+function copiarPix() {
+    let texto = document.getElementById("pixArea");
+    texto.select();
+    document.execCommand("copy");
+    alert("Pix copiado!");
+}
+</script>
+
 </head>
 
 <body>
 
 <header>
     <img src="https://i.ibb.co/9HZkqLFm/1774251247979.png">
-    <h1>RUI STREAMING</h1>
+    <h1 style="color:#38bdf8;">RUI STREAMING</h1>
+    <p>🔥 Filmes, séries e canais liberados na hora</p>
+    <p style="color:#22c55e;">⭐ Mais de 100 clientes satisfeitos</p>
 </header>
 
-<nav>
-    <a href="#">Início</a>
-    <a href="#planos">Planos</a>
-    <a href="#">Contato</a>
-</nav>
-
 <div class="container">
-    <h2>Bem-vindo ao RUI STREAMING</h2>
-    <p>Os melhores canais, filmes e séries em um só lugar.</p>
+    <p style="color:#38bdf8;">✅ Liberação imediata após pagamento</p>
+    <p style="color:red;">⚠️ Promoção por tempo limitado</p>
 
-    <a href="https://wa.me/559676023945" target="_blank" class="btn">Assista Agora</a>
-</div>
-
-<!-- PLANOS -->
-<div id="planos" class="container planos">
-    <h2>Escolha seu Plano</h2>
-
+    <!-- Plano 1 -->
     <div class="card">
+        <img src="https://i.ibb.co/9HZkqLFm/1774251247979.png" class="logo-card">
         <h3>Plano 1 Mês</h3>
         <p>R$ 25,00</p>
-        <a href="https://wa.me/559676023945?text=Quero%20o%20plano%20de%201%20mês" target="_blank" class="btn">Comprar</a>
+        <button class="btn" onclick="abrirModal(pix1)">Gerar Pix</button>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%201%20mês" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
     </div>
 
+    <!-- Plano 2 -->
     <div class="card">
+        <img src="https://i.ibb.co/9HZkqLFm/1774251247979.png" class="logo-card">
         <h3>Plano 2 Meses</h3>
         <p>R$ 50,00</p>
-        <a href="https://wa.me/559676023945?text=Quero%20o%20plano%20de%202%20meses" target="_blank" class="btn">Comprar</a>
+        <button class="btn" onclick="abrirModal(pix2)">Gerar Pix</button>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%202%20meses" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
     </div>
 
-    <div class="card">
+    <!-- Plano 3 -->
+    <div class="card destaque">
+        <img src="https://i.ibb.co/9HZkqLFm/1774251247979.png" class="logo-card">
+        <span class="badge">🔥 MAIS VENDIDO</span>
         <h3>Plano 3 Meses</h3>
         <p>R$ 65,00</p>
-        <a href="https://wa.me/559676023945?text=Quero%20o%20plano%20de%203%20meses" target="_blank" class="btn">Comprar</a>
+        <p style="color:#22c55e;">Economize R$ 10</p>
+        <button class="btn" onclick="abrirModal(pix3)">Gerar Pix</button>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%203%20meses" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
+    </div>
+
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="fecharModal()">×</span>
+        <h3>Pix Copia e Cola</h3>
+        <textarea id="pixArea" readonly></textarea>
+        <br><br>
+        <button class="btn" onclick="copiarPix()">Copiar</button>
     </div>
 </div>
+
+<a href="https://wa.me/559676023945" class="zap">💬</a>
 
 <footer>
     <p>© 2026 RUI STREAMING</p>
