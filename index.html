@@ -66,7 +66,7 @@ header img {
 
 /* CARDS */
 .card {
-    background-color: rgba(30,41,59,0.95);
+    background-color: rgba(30,41,59,0.9);
     padding: 20px;
     margin: 10px auto;
     border-radius: 10px;
@@ -92,10 +92,9 @@ header img {
     display: block;
     width: fit-content;
     margin: 5px auto 10px auto;
-    text-align: center;
 }
 
-/* LOGO CARD */
+/* LOGO */
 .logo-card {
     width: 80px;
     margin-bottom: 5px;
@@ -106,6 +105,8 @@ header img {
 .modal {
     display: none;
     position: fixed;
+    top: 0;
+    left: 0;
     z-index: 999;
     width: 100%;
     height: 100%;
@@ -114,7 +115,7 @@ header img {
 
 .modal-content {
     background: #020617;
-    margin: 15% auto;
+    margin: 20% auto;
     padding: 20px;
     width: 90%;
     max-width: 350px;
@@ -136,7 +137,7 @@ textarea {
     cursor: pointer;
 }
 
-/* WHATSAPP FLUTUANTE */
+/* WHATSAPP */
 .zap {
     position: fixed;
     bottom: 20px;
@@ -171,10 +172,18 @@ function fecharModal() {
 }
 
 function copiarPix() {
-    let texto = document.getElementById("pixArea");
-    texto.select();
-    document.execCommand("copy");
-    alert("Pix copiado!");
+    const texto = document.getElementById("pixArea").value;
+    navigator.clipboard.writeText(texto).then(() => {
+        alert("Pix copiado!");
+    });
+}
+
+/* FECHAR AO CLICAR FORA */
+window.onclick = function(event) {
+    const modal = document.getElementById("modal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
 }
 </script>
 
@@ -199,7 +208,7 @@ function copiarPix() {
         <h3>Plano 1 Mês</h3>
         <p>R$ 25,00</p>
         <button class="btn" onclick="abrirModal(pix1)">Gerar Pix</button>
-        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%201%20mês" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%201%20mês" class="btn whatsapp">Enviar Comprovante</a>
     </div>
 
     <!-- Plano 2 -->
@@ -208,7 +217,7 @@ function copiarPix() {
         <h3>Plano 2 Meses</h3>
         <p>R$ 50,00</p>
         <button class="btn" onclick="abrirModal(pix2)">Gerar Pix</button>
-        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%202%20meses" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%202%20meses" class="btn whatsapp">Enviar Comprovante</a>
     </div>
 
     <!-- Plano 3 -->
@@ -219,11 +228,12 @@ function copiarPix() {
         <p>R$ 65,00</p>
         <p style="color:#22c55e;">Economize R$ 10</p>
         <button class="btn" onclick="abrirModal(pix3)">Gerar Pix</button>
-        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%203%20meses" target="_blank" class="btn whatsapp">Enviar Comprovante</a>
+        <a href="https://wa.me/559676023945?text=Já%20paguei%20o%20plano%20de%203%20meses" class="btn whatsapp">Enviar Comprovante</a>
     </div>
 
 </div>
 
+<!-- MODAL -->
 <div id="modal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="fecharModal()">×</span>
